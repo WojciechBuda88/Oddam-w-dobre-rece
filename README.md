@@ -3,7 +3,7 @@ Projekt mający na celu stworzenie prostej drogi komunikacji między darczyńcam
 
 Użyto:
 
-Django
-Postgres
-Python
+Django,
+PostgreSQL,
+Python,
 JavaScript
