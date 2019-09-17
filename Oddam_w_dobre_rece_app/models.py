@@ -17,7 +17,7 @@ class Donation(models.Model):
     city = models.CharField(max_length=128, null=False)
     pick_up_date = models.DateField(null=False)
     pick_up_time = models.TimeField(null=False)
-    pick_up_comment = models.TextField()
+    pick_up_comment = models.TextField(null=True)
 
 
 class Institution(models.Model):

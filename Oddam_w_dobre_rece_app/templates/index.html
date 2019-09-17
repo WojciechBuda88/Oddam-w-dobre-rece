@@ -11,11 +11,11 @@
         </ul>
 
         <ul>
-          <li><a href="" class="btn btn--without-border active">Start</a></li>
-          <li><a href="#steps" class="btn btn--without-border">O co chodzi?</a></li>
-          <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
-          <li><a href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-          <li><a href="form.html" class="btn btn--without-border">Przekaż dary</a></li>
+          <li><a href="../" class="btn btn--without-border active">Start</a></li>
+          <li><a href="../#steps" class="btn btn--without-border">O co chodzi?</a></li>
+          <li><a href="../#about-us" class="btn btn--without-border">O nas</a></li>
+          <li><a href="../#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+          <li><a href="../form.html" class="btn btn--without-border">Przekaż dary</a></li>
           <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
       </nav>
@@ -33,13 +33,13 @@
     <section id="stats" class="stats">
       <div class="container container--85">
         <div class="stats--item">
-          <em>10</em>
+          <em>{{ donations }}</em>
           <h3>Oddanych worków</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum tempora!</p>
         </div>
 
         <div class="stats--item">
-          <em>5</em>
+          <em>{{ institutions }}</em>
           <h3>Wspartych organizacji</h3>
           <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
         </div>
@@ -80,9 +80,9 @@
       <div class="about-us--text">
         <h2>O nas</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero optio esse quisquam illo omnis.</p>
-        <img src="images/signature.svg" class="about-us--text-signature" alt="Signature" />
+        <img src="{% static '/images/signature.svg' %}" class="about-us--text-signature" alt="Signature" />
       </div>
-      <div class="about-us--image"><img src="images/about-us.jpg" alt="People in circle" /></div>
+      <div class="about-us--image"><img src="{% static '/images/about-us.jpg' %}" alt="People in circle" /></div>
     </section>
 
      <section id="help" class="help">
