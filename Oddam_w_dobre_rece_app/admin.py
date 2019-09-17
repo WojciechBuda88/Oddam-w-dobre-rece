@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from Oddam_w_dobre_rece_app.models import Category, Institution, Donation
+from Oddam_w_dobre_rece_app.models import Category, Institution, Donation, Person
 
 admin.site.register(Donation)
 admin.site.register(Institution)
 admin.site.register(Category)
+admin.site.register(Person)
 

@@ -19,8 +19,8 @@ from django.urls import path
 from Oddam_w_dobre_rece_app.views import LandingPageView, AddDonationView, LoginView, RegisterView
 
 urlpatterns = [
-    path('', LandingPageView.as_view()),
-    path('add_donation/', AddDonationView.as_view()),
-    path('login/', LoginView.as_view()),
-    path('register/', RegisterView.as_view())
+    path('', LandingPageView.as_view(), name="landing_page"),
+    path('add_donation/', AddDonationView.as_view(), name="donation"),
+    path('login/', LoginView.as_view(), name="login"),
+    path('register/', RegisterView.as_view(), name="register")
 ]
