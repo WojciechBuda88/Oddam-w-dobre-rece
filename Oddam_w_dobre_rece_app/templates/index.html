@@ -4,10 +4,21 @@
 {% block content %}
 
     <header class="header--main-page">
-      <nav class="container container--70">
-        <ul class="nav--actions">
-          <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
-          <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+    <nav class="container container--70">
+      <ul class="nav--actions">
+            {% if user.is_authenticated %}
+                <li class="logged-user">
+                Witaj {{ user.first_name }}
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Ustawienia</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                </ul>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% endif %}
         </ul>
 
         <ul>
@@ -97,6 +108,7 @@
       <!-- SLIDE 1 -->
       <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
+
         <ul class="help--slides-items">
             {% for foundation in foundations %}
           <li>
@@ -155,10 +167,12 @@
             {% endfor %}
         </ul>
 
+
         <ul class="help--slides-pagination">
           <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
           <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
         </ul>
+
       </div>
     </section>
 

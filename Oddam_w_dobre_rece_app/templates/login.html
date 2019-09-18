@@ -5,8 +5,19 @@
     <header>
       <nav class="container container--70">
         <ul class="nav--actions">
-          <li><a href="#">Zaloguj</a></li>
-          <li class="highlighted"><a href="#">Załóż konto</a></li>
+            {% if user.is_authenticated %}
+                <li class="logged-user">
+                Witaj {{ user.first_name }}
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Ustawienia</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                </ul>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% endif %}
         </ul>
 
         <ul>
@@ -22,7 +33,7 @@
 
     <section id="login" class="login-page">
       <h2>Zaloguj się</h2>
-      <form>
+      <form action="" method="POST">
         <div class="form-group">
           <input type="email" name="email" placeholder="Email" />
         </div>
@@ -32,9 +43,10 @@
         </div>
 
         <div class="form-group form-group--buttons">
-          <a href="#" class="btn btn--without-border">Załóż konto</a>      
+          <a href="{% url 'register' %}#register" class="btn btn--without-border">Załóż konto</a>
           <button class="btn" type="submit">Zaloguj się</button> 
         </div>
+          {% csrf_token %}
       </form>
     </section>
 

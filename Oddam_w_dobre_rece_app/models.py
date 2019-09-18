@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import forms
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -34,15 +34,3 @@ class Institution(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Person(models.Model):
-    name = models.CharField(max_length=255)
-    surname = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
-    password2 = models.CharField(max_length=255)
-    username = models.EmailField()
-
-    def __str__(self):
-        return self.username

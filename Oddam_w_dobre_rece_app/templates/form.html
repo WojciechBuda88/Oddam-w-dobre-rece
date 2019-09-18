@@ -5,14 +5,19 @@
     <header class="header--form-page">
       <nav class="container container--70">
         <ul class="nav--actions">
-          <li class="logged-user">
-            Witaj Agata
-            <ul class="dropdown">
-              <li><a href="#">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
-              <li><a href="#">Wyloguj</a></li>
-            </ul>
-          </li>
+            {% if user.is_authenticated %}
+                <li class="logged-user">
+                Witaj {{ user.first_name }}
+                <ul class="dropdown">
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Ustawienia</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                </ul>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% endif %}
         </ul>
 
         <ul>
@@ -24,6 +29,7 @@
           <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
       </nav>
+
 
       <div class="slogan container container--90">
         <div class="slogan--item">
@@ -51,7 +57,7 @@
           </div>
         </div>
       </div>
-    </header>
+</header>
 
     <section class="form--steps">
       <div class="form--steps-instructions">
@@ -73,6 +79,8 @@
         </div>
       </div>
 
+        {% if user.is_authenticated %}
+
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
@@ -81,55 +89,18 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="clothes-to-use"
-                />
-                <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span
-                >
-              </label>
-            </div>
+              {% for category in categories %}
 
             <div class="form-group form-group--checkbox">
               <label>
-                <input
-                  type="checkbox"
-                  name="categories"
-                  value="clothes-useless"
-                />
+                <input type="checkbox" name="categories" value={{ category.id }} />
                 <span class="checkbox"></span>
-                <span class="description">ubrania, do wyrzucenia</span>
+                <span class="description">{{ category.name }}</span>
               </label>
             </div>
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="toys" />
-                <span class="checkbox"></span>
-                <span class="description">zabawki</span>
-              </label>
-            </div>
+              {% endfor %}
 
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="books" />
-                <span class="checkbox"></span>
-                <span class="description">książki</span>
-              </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="checkbox" name="categories" value="other" />
-                <span class="checkbox"></span>
-                <span class="description">inne</span>
-              </label>
-            </div>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn next-step">Dalej</button>
@@ -298,7 +269,26 @@
           </div>
         </form>
       </div>
+
+            {% else %}
+
+            <div class="form--steps-container">
+            <div class="text" ><h3>Ta sekcja jest dostępna tylko dla zalogowanych użytkowników</h3></div>
+
+            <div>
+                <ul>
+                <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+                </ul>
+            </div>
+
+
+            </div>
+
+            {% endif %}
+
     </section>
+
 
     {% endblock %}
 
