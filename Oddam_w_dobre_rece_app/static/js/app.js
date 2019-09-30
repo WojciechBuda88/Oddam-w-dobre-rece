@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: callback to page change event
      */
     changePage(e) {
-      e.preventDefault();
+      //e.preventDefault();
       const page = e.target.dataset.page;
 
       console.log(page);
@@ -243,13 +243,72 @@ document.addEventListener("DOMContentLoaded", function() {
      * TODO: validation, send data to server
      */
     submit(e) {
-      e.preventDefault();
-      this.currentStep++;
-      this.updateForm();
+      //e.preventDefault();
+        this.currentStep++;
+        this.updateForm();
     }
   }
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
+
+  let filerBtn = $("#btn-first-step");
+  let institutions = $(".institutions");
+
+  filerBtn.on( "click", function() {
+    let catTab = [];
+
+    let categories = $(".categories").children("input:checked").map(function() {
+      return $(this).val();
+    });
+
+    categories.each(function (index) {
+      catTab.push($(this)[0]);
+    });
+    institutions.each(function( index ) {
+
+      if(catTab.includes($(this).val())){
+      }else{
+        $(this).parent().parent().css("display", "none");
+      }
+
+    });
+  });
+
+
+  let btnShow = $("#btn-show");
+
+  btnShow.on("click", function(){
+      let bags = $("#bags").val();
+      $("#bags-info").text(bags);
+
+      let institutionName = $("form .form-group--checkbox input:checked + .checkbox").next().children(":first").text();
+      $("#institution-info").text(institutionName)
+
+      let address = $("#address").val();
+      $("#address-info").text(address);
+
+      let city = $("#city").val();
+      $("#city-info").text(city);
+
+      let postcode = $("#postcode").val();
+      $("#postcode-info").text(postcode);
+
+      let phone = $("#phone").val();
+      $("#phone-info").text(phone);
+
+      let date = $("#date").val();
+      $("#date-info").text(date);
+
+      let time = $("#time").val();
+      $("#time-info").text(time);
+
+      let more_info = $("#more_info").val();
+      $("#more_info-info").text(more_info);
+  })
+
+
+
+
 });

@@ -1,10 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <header xmlns="http://www.w3.org/1999/html">
+      <nav class="container container--70">
+        <ul class="nav--actions">
+            {% if user.is_authenticated %}
+                <li class="logged-user">
+                Witaj {{ user.first_name }}
+                <ul class="dropdown">
+                    <li><a href="{% url 'profile' user.id %}">Profil</a></li>
+                    <li><a href="{% url 'settings' user.id %}">Ustawienia</a></li>
+                    <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                    {% if user.is_superuser %}
+                        <li><a href="../admin">Panel administracyjny</a></li>
+                    {% endif %}
+                </ul>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% endif %}
+        </ul>
+
+        <ul>
+          <li><a href="{% url 'landing_page' %}" class="btn btn--without-border active">Start</a></li>
+          <li><a href="{% url 'landing_page' %}#steps" class="btn btn--without-border">O co chodzi?</a></li>
+          <li><a href="{% url 'landing_page' %}#about-us" class="btn btn--without-border">O nas</a></li>
+          <li><a href="{% url 'landing_page' %}#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+          <li><a href="{% url 'landing_page' %}add_donation" class="btn btn--without-border">Przekaż dary</a></li>
+          <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="slogan container container--90">
+        <h2>Imię: {{ user.first_name }}</h2>
+        <h2>Nazwisko: {{ user.last_name }}</h2>
+        <h2>Email: {{ user.email }}</h2>
+    </div>
+
+        <h2 id="donation">Donacje Aktywne:</h2>
+
+<p>
+
+    <ul>
+        {% for donation in donations %}
+            <p class="slogan container container--90" >
+                <li>{{ donation.quantity }} worków na oddano {{ donation.institution }}</li>
+                <li>Kategorie darów:
+                    {% for category in donation.categories.all %}
+                    {{ category }}
+                {% endfor %} </li>
+                <li>Termin odbioru: {{ donation.pick_up_date }}, {{ donation.pick_up_time }}</li>
+            <button type="submit"><a href="/archive/{{ donation.id }}">Archiwizuj</button></a>
+            </p>
+        {% endfor %}
+    </ul>
+
+    </p>
+
+    <h2>Donacje Zarchiwizowane:</h2>
+
+<p>
+
+    <ul>
+        {% for donation in archived_donations %}
+            <p class="slogan container container--90" >
+                <li>{{ donation.quantity }} worków na oddano {{ donation.institution }}</li>
+                <li>Kategorie darów:
+                    {% for category in donation.categories.all %}
+                    {{ category }}
+                {% endfor %} </li>
+                <li>Termin odbioru: {{ donation.pick_up_date }}, {{ donation.pick_up_time }}</li>
+            </p>
+        {% endfor %}
+    </ul>
+
+    </p>
+
+    {% endblock %}
+
+  </body>
 </html>
