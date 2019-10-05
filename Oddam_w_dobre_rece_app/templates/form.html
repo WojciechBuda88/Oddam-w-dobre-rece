@@ -96,8 +96,8 @@
                         {% for category in categories %}
 
                             <div class="form-group form-group--checkbox">
-                                <label class="categories">
-                                    <input type="checkbox" name="categories" value={{ category.id }}>
+                                <label>
+                                    <input type="checkbox" name="categories" class="categories" value={{ category.id }}>
                                     <span class="checkbox"></span>
                                     <span class="description">{{ category.name }}</span>
                                 </label>
@@ -129,41 +129,32 @@
                     </div>
 
 
+                    <!-- STEP 3 -->
+                    <div data-step="3" id="institution-check">
+            <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+
+            {% for institution in institutions %}
+                <div class="form-group form-group--checkbox">
+                  <label>
+                    <input type="radio" name="organization" class="institutions" value="{{ institution.id }}" data-category_id="{% for category in institution.categories.all %}{{ category.id }} {% endfor %}"/>
+                    <span class="checkbox radio"></span>
+                    <span class="description">
+                      <div class="title">{{ institution.name }}</div>
+                      <div class="subtitle">
+                        Instytucja przyjmie: {% for category in institution.categories.all %}{{ category.name }} {% endfor %}
+                      </div>
+                    </span>
+                  </label>
+                </div>
+            {% endfor %}
+
+            <div class="form-group form-group--buttons">
+              <button type="button" class="btn prev-step" id="filter-reset">Wstecz</button>
+              <button type="button" class="btn next-step">Dalej</button>
+            </div>
+          </div>
+
                     <!-- STEP 4 -->
-                    <div data-step="3">
-                        <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-
-                        {% for institution in institutions %}
-
-                            <div class="form-group form-group--checkbox">
-                                <label>
-                                    {% for category in institution.categories.all %}
-                                        <input type="hidden" class="institutions" value="{{ category.id }}"/>
-                                    {% endfor %}
-                                    <input type="radio" name="organization" value="{{ institution.id }}"/>
-                                    <span class="checkbox radio"></span>
-                                    <span class="description">
-                                    <div class="title">{{ institution.name }}</div>
-                                    <div class="subtitle">
-                                    Odbiera od darczyńcy: {% for category in institution.categories.all %}
-                                                      {{ category }}
-                                                       {% endfor %}
-                                    </div>
-                                    </span>
-                                </label>
-                            </div>
-
-
-                        {% endfor %}
-
-
-                        <div class="form-group form-group--buttons">
-                            <button type="button" class="btn prev-step">Wstecz</button>
-                            <button type="button" class="btn next-step">Dalej</button>
-                        </div>
-                    </div>
-
-                    <!-- STEP 5 -->
                     <div data-step="4">
                         <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
@@ -215,7 +206,7 @@
                         </div>
                     </div>
 
-                    <!-- STEP 6 -->
+                    <!-- STEP 5 -->
                     <div data-step="5">
                         <h3>Podsumowanie Twojej darowizny</h3>
 

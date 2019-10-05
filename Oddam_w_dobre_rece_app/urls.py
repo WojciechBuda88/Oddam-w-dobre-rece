@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from Oddam_w_dobre_rece_app.views import LandingPageView, AddDonationView, LoginView, RegisterView, LogoutView, \
-    ProfileView, archive, FormConfirmationView, SettingsView, ChangePasswordView
+    ProfileView, archive, FormConfirmationView, SettingsView, ChangePasswordView, ContactView
 
 urlpatterns = [
     path('', LandingPageView.as_view(), name="landing_page"),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('archive/<int:id>', archive, name="archive"),
     path('confirmation/', FormConfirmationView.as_view(), name="confirmation"),
     path('profile/<int:id>/settings', SettingsView.as_view(), name="settings"),
-    path('profile/<int:id>/settings/password', ChangePasswordView.as_view(), name="password")
+    path('profile/<int:id>/settings/password', ChangePasswordView.as_view(), name="password"),
+    path('contact/', ContactView.as_view(), name="contact")
 ]

@@ -253,29 +253,43 @@ document.addEventListener("DOMContentLoaded", function() {
     new FormSteps(form);
   }
 
-  let filerBtn = $("#btn-first-step");
-  let institutions = $(".institutions");
 
-  filerBtn.on( "click", function() {
-    let catTab = [];
+  let filerBtn = document.getElementById("btn-first-step");
+  let institutions = document.getElementsByClassName("institutions");
 
-    let categories = $(".categories").children("input:checked").map(function() {
-      return $(this).val();
-    });
+  filerBtn.addEventListener( "click", function() {
+    let listCategories = [];
 
-    categories.each(function (index) {
-      catTab.push($(this)[0]);
-    });
-    institutions.each(function( index ) {
+    let checkedCategories = document.getElementsByClassName("categories");
+    for(let i=0; i<checkedCategories.length; i++){
+      if(checkedCategories[i].checked){
+         listCategories.push(checkedCategories[i].value)
+      }
+    }
 
-      if(catTab.includes($(this).val())){
-      }else{
-        $(this).parent().parent().css("display", "none");
+    function checkArrays(array1, array2) {
+
+      for(let i=0; i<array1.length; i++){
+        if(array2.includes(array1[i])){
+
+        }else{
+          return false;
+        }
+      }
+      return true;
       }
 
-    });
-  });
+    for(let i=0; i<institutions.length; i++){
+      let a = institutions[i].dataset.category_id.split(" ")
+      a.pop();
 
+      if(checkArrays(listCategories, a)){
+        institutions[i].parentElement.parentElement.style.display = "block";
+      }else{
+        institutions[i].parentElement.parentElement.style.display = "none";
+      }
+    }
+  });
 
   let btnShow = $("#btn-show");
 
@@ -307,8 +321,5 @@ document.addEventListener("DOMContentLoaded", function() {
       let more_info = $("#more_info").val();
       $("#more_info-info").text(more_info);
   })
-
-
-
 
 });

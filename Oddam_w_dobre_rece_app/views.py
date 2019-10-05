@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.core.mail import send_mail
 
+from Oddam_w_dobre_rece.settings import ADMINS
 from Oddam_w_dobre_rece_app.models import Donation, Institution, Category
 
 
@@ -161,3 +164,14 @@ class ChangePasswordView(View):
             user.set_password(new_password)
             user.save()
             return redirect("logout")
+
+
+class ContactView(View):
+    def post(self, request):
+        data = request.POST
+
+        mail_subject = f"Contact message - { request.user.username }"
+        message = f"{data['message']} - Pozdrawiam {data['name']} {data['surname']}"
+        send_mail(mail_subject,message, "reprezentacjaoverwatch@gmail.com", ADMINS)
+
+        return redirect("landing_page")
