@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from django.core.mail import send_mail
 
@@ -73,20 +74,25 @@ class LoginView(View):
         return render(request, "login.html")
 
     def post (self, request):
-        user_login = request.POST.get("email")
-        user_password = request.POST.get("password")
-        user = authenticate(username=user_login, password=user_password)
-        if user is not None:
-            login(request, user)
-            return render(request, "index.html")
-        else:
-            return redirect("/register")
+        if request.method == "POST":
+            username = request.POST.get("email")
+            password = request.POST.get("password")
+            user = authenticate(username=username, password=password)
+            try:
+                if user == User.objects.get_by_natural_key(username=username):
+                    login(request, user)
+                    return redirect(reverse("landing_page"))
+                else:
+                    message = "Niepoprawne hasło!"
+                    return render(request, "login.html", context={"message": message})
+            except Exception:
+                return redirect("/register")
 
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return render(request, "index.html")
+        return redirect("landing_page")
 
 
 class RegisterView(View):
